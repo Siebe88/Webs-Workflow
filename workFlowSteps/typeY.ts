@@ -1,5 +1,9 @@
-export async function typeY(): Promise<any> {
-  console.log('test');
+export async function typeY(arg: { count?: number }): Promise<{ count: number }> {
+  console.log('CountArg:', arg);
+  let count: number = 0;
 
-  return 'X';
+  // if (arg.count) count = arg.count + 1;
+  console.log('count:', count);
+
+  return { count };
 }

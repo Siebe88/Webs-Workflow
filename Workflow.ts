@@ -23,7 +23,9 @@ class WorkFlow {
     let context: any = {};
     for (const step of workflowConfiguration) {
       console.log('Processing step:', step.type);
-      const res = await this.workFlowSteps[step.type](step.data);
+      if (!step.data) step.data = {};
+      const res = await this.workFlowSteps[step.type]({ ...context, ...step.data });
+      console.log('Res step:', res);
       context = { ...context, ...res };
     }
     return 0;

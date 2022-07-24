@@ -21,4 +21,9 @@ const workflowConfiguration = [
   // },
 ];
 
-workFlow.run(workflowConfiguration).then((output) => console.log('result', output));
+async function test() {
+  const result = await workFlow.run(workflowConfiguration);
+  console.log(result);
+}
+
+test();

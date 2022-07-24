@@ -1,5 +1,5 @@
 import { typeX } from './typeX';
-import { typeY } from '../TotalFlow';
+import { typeY } from './typeY';
 
 const steps: any = {};
 steps.typeX = typeX;
