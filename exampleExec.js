@@ -7,9 +7,9 @@ const workflowConfiguration = [
     type: 'typeX',
     data: { foo: 'bar', isSomething: false },
   },
-  // {
-  //   type: 'typeY',
-  // },
+  {
+    type: 'typeY',
+  },
   // {
   //   type: 'typeY',
   // },
