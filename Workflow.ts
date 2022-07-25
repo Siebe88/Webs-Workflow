@@ -16,7 +16,7 @@ class WorkFlow {
     //first check if all steps are on the workflow, then not run at all
     for (const step of workflowConfiguration) {
       if (!this.workFlowSteps[step.type]) {
-        throw new Error('Method does not exit in workflow');
+        throw new Error(`Method: ${step.type} does not exit in workflow`);
       }
     }
 
