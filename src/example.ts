@@ -1,21 +1,21 @@
-import { WorkFlowStep, WorkFlow } from './Workflow';
+import { WorkFlow, stepClasses } from './index';
 
 const workFlow = new WorkFlow();
-workFlow.registerStep(new WorkFlowStep('typeX'));
-workFlow.registerStep(new WorkFlowStep('typeY'));
-workFlow.registerStep(new WorkFlowStep('setBaseValue'));
+workFlow.registerStep(new stepClasses.SetBaseValue());
+// workFlow.registerStep(new WorkFlowStep('typeY'));
+// workFlow.registerStep(new WorkFlowStep('setBaseValue'));
 
 const workflowConfiguration = [
-  {
-    type: 'typeX',
-    data: { foo: 'bar', isSomething: false },
-  },
-  {
-    type: 'typeY',
-  },
-  {
-    type: 'typeY',
-  },
+  // {
+  //   type: 'typeX',
+  //   data: { foo: 'bar', isSomething: false },
+  // },
+  // {
+  //   type: 'typeY',
+  // },
+  // {
+  //   type: 'typeY',
+  // },
   {
     type: 'setBaseValue',
     data: { baseName: 'calc', baseValue: 5 },
