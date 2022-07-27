@@ -1,21 +1,9 @@
-import { WorkFlow, stepClasses } from './index';
+import { Workflow, stepClasses, WorkflowConfiguration } from './index';
 
-const workFlow = new WorkFlow();
-workFlow.registerStep(new stepClasses.SetBaseValue());
-// workFlow.registerStep(new WorkFlowStep('typeY'));
-// workFlow.registerStep(new WorkFlowStep('setBaseValue'));
+const workflow = new Workflow();
+workflow.registerStep(new stepClasses.SetBaseValue());
 
-const workflowConfiguration = [
-  // {
-  //   type: 'typeX',
-  //   data: { foo: 'bar', isSomething: false },
-  // },
-  // {
-  //   type: 'typeY',
-  // },
-  // {
-  //   type: 'typeY',
-  // },
+const workflowConfiguration: WorkflowConfiguration[] = [
   {
     type: 'setBaseValue',
     data: { baseName: 'calc', baseValue: 5 },
@@ -28,17 +16,13 @@ const workflowConfiguration = [
   //   type: 'calculation',
   //   data: { baseValue: 'calc', calculation: '*', number: 10 },
   // },
-
-  // Does not exists and if not exist do not run workflow
-  // {
-  //   type: 'typeZ',
-  //   data: { lorem: 'ipsum', someNumber: 12 },
-  // },
 ];
 
+workflow.registerConfiguration(workflowConfiguration);
+
 async function test() {
-  const result = await workFlow.run(workflowConfiguration);
-  console.log(result);
+  const result = await workflow.run();
+  // console.log(result);
 }
 
 test();
