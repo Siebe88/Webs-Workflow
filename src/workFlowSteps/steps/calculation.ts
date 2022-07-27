@@ -13,8 +13,6 @@ import { WorkFlowStep } from '../WorkFlowStep';
 export default class Calculation extends WorkFlowStep {
   public async runStep(arg: { baseName: string; calcValue: number; calType: string; context: any }): Promise<any> {
     const baseValue = arg.context[arg.baseName];
-    console.log(`${baseValue + arg.calType + arg.calcValue}`);
-    console.log(eval(`${baseValue + arg.calType + arg.calcValue}`));
     return { [arg.baseName]: eval(`${baseValue + arg.calType + arg.calcValue}`) };
   }
 

@@ -1,13 +1,18 @@
-import { Workflow, stepClasses, WorkflowConfiguration } from './index';
+import { Workflow, stepClasses, WorkflowConfiguration } from '../index';
 
 const workflow = new Workflow('Simple workflow');
 workflow.registerStep(new stepClasses.SetBaseValue());
 workflow.registerStep(new stepClasses.Calculation());
 
 const workflowConfiguration: WorkflowConfiguration[] = [
+  // {
+  //   type: 'setBaseValue',
+  //   data: { baseName: 'calc', baseValue: 5 },
+  // },
+  // Test for validation steps
   {
     type: 'setBaseValue',
-    data: { baseName: 'calc', baseValue: 5 },
+    data: { baseName: 'calc' },
   },
   {
     type: 'calculation',
@@ -22,8 +27,7 @@ const workflowConfiguration: WorkflowConfiguration[] = [
 workflow.registerConfiguration(workflowConfiguration);
 
 async function test() {
-  const result = await workflow.run();
-  // console.log(result);
+  await workflow.run();
 }
 
 test();
