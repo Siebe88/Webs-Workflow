@@ -16,10 +16,14 @@ export default class Calculation extends WorkFlowStep {
     return { [arg.baseName]: eval(`${baseValue + arg.calType + arg.calcValue}`) };
   }
 
-  public async validateStep(arg: { baseName: string; baseValue: number }): Promise<any> {
-    if (arg.baseName == undefined || arg.baseValue == undefined)
-      throw new Error('Does not contain all necessary inputs');
-    return { [arg.baseName]: arg.baseValue };
+  public async validateStep(arg: { baseName: string; calcValue: number; calType: string; context: any }): Promise<any> {
+    const baseValue = arg.context[arg.baseName];
+
+    if (!arg.baseName || !baseValue || !arg.calType || !arg.context)
+      throw new Error(`Does not contain all necessary inputs arg: ${JSON.stringify(arg)}`);
+
+    // For this simple step validate and run do the same but when writing to a system this step would be cancelled
+    return { [arg.baseName]: eval(`${baseValue + arg.calType + arg.calcValue}`) };
   }
 
   get stepName(): string {
