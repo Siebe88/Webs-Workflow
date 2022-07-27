@@ -4,6 +4,11 @@ import { WorkflowConfiguration } from './WorkflowConfiguration';
 export class Workflow {
   workflowSteps: WorkFlowStep[] = [];
   workflowConfiguration: WorkflowConfiguration[] = [];
+  workflowName: string;
+
+  constructor(workflowName: string) {
+    this.workflowName = workflowName;
+  }
 
   public registerStep(workflowStep: WorkFlowStep) {
     if (this.findStep(workflowStep.stepName)) {
@@ -33,30 +38,32 @@ export class Workflow {
   }
 
   private async validateSteps() {
+    console.log(`Started validating workflow: ${this.workflowName}`);
     for (const step of this.workflowConfiguration) {
       if (!this.findStep(step.type)) {
         throw new Error(`Method: ${step.type} does not exit in workflow`);
       }
       // if()
     }
-
+    console.log(`Successfully validated workflow: ${this.workflowName}`);
     return 0;
   }
 
   private async runSteps() {
-    console.log('Started executing workflow');
+    console.log(`Started executing workflow: ${this.workflowName}`);
     let context: any = {};
     for (const stepConfig of this.workflowConfiguration) {
       console.log('Processing step:', stepConfig.type);
       const step = this.findStep(stepConfig.type);
-      if (step === undefined) throw new Error('');
+      if (step === undefined) throw new Error('Step does not exist');
 
       if (!stepConfig.data) stepConfig.data = {};
-      const res = await step.run({ ...context, ...stepConfig.data });
+      const res = await step.run({ ...stepConfig.data, context });
       console.log('Result:', res);
       context = { ...context, ...res };
       console.log('Successfully processed step:', stepConfig.type);
     }
+    console.log('Successfully executed workflow:', this.workflowName);
     return 0;
   }
 }
