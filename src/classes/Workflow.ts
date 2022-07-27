@@ -6,15 +6,16 @@ export class Workflow {
   workflowConfiguration: WorkflowConfiguration[] = [];
 
   public registerStep(workflowStep: WorkFlowStep) {
-    //To make sure that there are not two identical  workflowSteps registered
-    if (this.findStep(workflowStep.stepName))
+    if (this.findStep(workflowStep.stepName)) {
       throw new Error(`WorkflowStep: ${workflowStep.stepName} has already been registered.`);
+    }
 
     this.workflowSteps.push(workflowStep);
     console.log('Successfully registered:', workflowStep.stepName);
+    return 0;
   }
 
-  private findStep(stepName: string): any {
+  private findStep(stepName: string): WorkFlowStep | undefined {
     return this.workflowSteps.find((step) => step.stepName === stepName);
   }
 
@@ -43,14 +44,19 @@ export class Workflow {
   }
 
   private async runSteps() {
-    // let context: any = {};
-    // for (const step of workflowConfiguration) {
-    //   console.log('Processing step:', step.type);
-    //   if (!step.data) step.data = {};
-    //   const res = await this.workflowSteps[step.type]({ ...context, ...step.data });
-    //   console.log('Res step:', res);
-    //   context = { ...context, ...res };
-    // }
-    // return 0;
+    console.log('Started executing workflow');
+    let context: any = {};
+    for (const stepConfig of this.workflowConfiguration) {
+      console.log('Processing step:', stepConfig.type);
+      const step = this.findStep(stepConfig.type);
+      if (step === undefined) throw new Error('');
+
+      if (!stepConfig.data) stepConfig.data = {};
+      const res = await step.run({ ...context, ...stepConfig.data });
+      console.log('Result:', res);
+      context = { ...context, ...res };
+      console.log('Successfully processed step:', stepConfig.type);
+    }
+    return 0;
   }
 }

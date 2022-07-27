@@ -1,14 +1,14 @@
 export abstract class WorkFlowStep {
   constructor() {}
 
-  validate(arg: any) {
+  public async validate(arg: any) {
     console.log(`Validating: ${this.stepName}`);
-    this.validateStep(arg);
+    return this.validateStep(arg);
   }
 
-  run(arg: any) {
+  public async run(arg: any): Promise<any> {
     console.log(`Running: ${this.stepName}`);
-    this.runStep(arg);
+    return this.runStep(arg);
   }
 
   abstract runStep(arg: any): Promise<any>;
