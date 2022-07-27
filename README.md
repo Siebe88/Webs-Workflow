@@ -4,9 +4,9 @@ This piece of software was made to enable the configuration and execution of a w
 
 ## To create and execute a workflow
 
-Create a copy of src/workflows/templateWorkflow.ts and follow the steps in the file.
-
-To run the workflow: ts-node ./src/workflows/fileName.ts (please change fileName to the new workflow).
+- Create a copy of src/workflows/templateWorkflow.ts and follow the steps in the file.
+- Add the new workflow to src\workflows\index.ts so that the workflow is exported.
+  To run the workflow: ts-node ./src/workflows/fileName.ts (please change fileName to the new workflow).
 
 ## To create new workFlowStep
 
