@@ -10,14 +10,13 @@ export class Workflow {
     this.workflowName = workflowName;
   }
 
-  public registerStep(workflowStep: WorkFlowStep) {
+  public registerStep(workflowStep: WorkFlowStep): void {
     if (this.findStep(workflowStep.stepName)) {
       throw new Error(`WorkflowStep: ${workflowStep.stepName} has already been registered.`);
     }
 
     this.workflowSteps.push(workflowStep);
     console.log('Successfully registered:', workflowStep.stepName);
-    return 0;
   }
 
   private findStep(stepName: string): WorkFlowStep | undefined {
@@ -30,11 +29,10 @@ export class Workflow {
     return 0;
   }
 
-  public async run(): Promise<number> {
+  public async run(): Promise<void> {
     if (!this.workflowConfiguration) throw new Error('No workflowConfiguration has been registered');
     await this.validateSteps();
     await this.runSteps('run');
-    return 0;
   }
 
   private async validateSteps() {

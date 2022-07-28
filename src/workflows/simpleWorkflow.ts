@@ -1,4 +1,5 @@
 import { Workflow, stepClasses, WorkflowConfiguration } from '../index';
+import { SetBaseValue } from '../workFlowSteps/StepClasses';
 
 const workflow = new Workflow('Simple workflow');
 workflow.registerStep(new stepClasses.SetBaseValue());
